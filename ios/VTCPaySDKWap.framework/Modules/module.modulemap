@@ -1,0 +1,6 @@
+framework module VTCPaySDKWap {
+  umbrella header "VTCPaySDKWap.h"
+
+  export *
+  module * { export * }
+}
