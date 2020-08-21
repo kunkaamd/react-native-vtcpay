@@ -33,7 +33,6 @@ public class VTCPayModule extends ReactContextBaseJavaModule {
         appInfoModel.setCurrency(VTCPaySDK.VND);
         appInfoModel.setReceiverAccount(receiverAccount);
         appInfoModel.setPaymentType(paymentType);
-
         VTCPaySDK.getInstance().nextFunctionVTCPay(getCurrentActivity(), VTCPaySDK.PAYMENT, appInfoModel, (responseCode, Description) -> {
             callback.invoke(responseCode,Description);
         });

@@ -14,6 +14,7 @@ import {
   View,
   Text,
   StatusBar,
+  Platform,
   NativeModules,
   Button
 } from 'react-native';
@@ -45,21 +46,36 @@ const App: () => React$Node = () => {
           <Button
             onPress={
               () => {
-                VTCPay.paymentAction(
-                  12345,//appid
-                  "accountName",
-                  "secrectKey",
-                  1,//paymentType
-                  2000,//amount
-                  "receiverAccount",
-                  "orderCode",
-                  (isSuccess,errorMessage) => {
-                    console.log("CUNG DC");
-                  }
-                );
+                if(Platform.OS === 'ios') {
+                  VTCPay.paymentAction(
+                    500052059,//appid
+                    "0357758300",//accountName
+                    "123456",//"secrectKey (password cua app)"
+                    0,//paymentType
+                    500000,//amount
+                    "0357758300",//"receiverAccount",
+                    "123455432",//orderCode(i guess this is my order_id)
+                    (responseCode,description) => {
+                      console.log("ios===>",responseCode,description);
+                    }
+                  );
+                } else { //android
+                  VTCPay.paymentAction(
+                    500052059,//appid
+                    "0357758300",//accountName
+                    "123456",//"secrectKey (password cua app)"
+                    0,//paymentType
+                    500000,//amount
+                    "0357758300",//"receiverAccount",
+                    "123455432",//orderCode(i guess this is my order_id)
+                    (responseCode,description) => {
+                      console.log("android===>",responseCode,description);
+                    }
+                  );
+                }
               }
             }
-            title="Learn More"
+            title="TEST"
             color="#841584"
             accessibilityLabel="Learn more about this purple button"
           />

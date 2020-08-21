@@ -14,7 +14,7 @@ class VTCPay: NSObject,VTCPaySDKWapManagerPaymentDelegate {
   private var callBackFinish:RCTResponseSenderBlock?;
   
   @objc(paymentAction:accountName:secrectKey:paymentType:amount:receiverAccount:orderCode:callback:)
-  func paymentAction(appid: Int, accountName: String, secrectKey: String, paymentType: Int,amount: Int,receiverAccount:String,orderCode:String,callback: @escaping RCTResponseSenderBlock) -> Void {
+  func paymentAction(appid: NSNumber, accountName: String, secrectKey: String, paymentType: NSNumber,amount: NSNumber,receiverAccount:String,orderCode:String,callback: @escaping RCTResponseSenderBlock) -> Void {
     
     VTCPaySDKWapManager.shared()?.isSandbox = true;//is Development
     
@@ -37,10 +37,10 @@ class VTCPay: NSObject,VTCPaySDKWapManagerPaymentDelegate {
             break;
     }
     
-    VTCPaySDKWapManager.shared()?.settingMerchain(appId: appid, accountName: accountName, secrectKey: secrectKey)
+    VTCPaySDKWapManager.shared()?.settingMerchain(appId: appid.intValue, accountName: accountName, secrectKey: secrectKey)
     VTCPaySDKWapManager.shared()?.paymentDelegate = self;
     callBackFinish = callback;
-    VTCPaySDKWapManager.shared()?.makePayment(amount: amount, receiverAccount: receiverAccount, orderCode: orderCode, paymentType: paymentTypeData, language: VTCPaySDKWapManager.LanguageType.vtcPayLangVienamese)
+    VTCPaySDKWapManager.shared()?.makePayment(amount: amount.intValue, receiverAccount: receiverAccount, orderCode: orderCode, paymentType: paymentTypeData, language: VTCPaySDKWapManager.LanguageType.vtcPayLangVienamese)
  
   }
   
@@ -67,8 +67,7 @@ class VTCPay: NSObject,VTCPaySDKWapManagerPaymentDelegate {
   
   
   func VTCPaySDKPaymentDidFinished(success: Bool, errorMessage: String!, amount: Int, transactionId: Int, status: Int, orderId: Int, paymentType: String!, orderCode: String!) {
-    callBackFinish!([success,errorMessage])
+    callBackFinish!([status,errorMessage])
   }
   
 }
-
